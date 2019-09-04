@@ -1,0 +1,2 @@
+include ':app', ':superstateview'
+rootProject.name='SuperStateView'

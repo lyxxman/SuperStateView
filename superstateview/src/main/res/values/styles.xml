@@ -1,0 +1,11 @@
+<resources>
+
+    <declare-styleable name="SuperStateView">
+        <attr name="sup_empty" format="reference"/>
+        <attr name="sup_load" format="reference"/>
+        <attr name="sup_error" format="reference"/>
+        <attr name="sup_content" format="reference"/>
+        <attr name="sup_unnet" format="reference"/>
+
+    </declare-styleable>
+</resources>
