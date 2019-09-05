@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.lyxxman'
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 28
 
@@ -21,7 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    publish {
+        userOrg = 'lyxxman'
+        groupId = 'com.ly'
+        artifactId = 'superstateview'
+        publishVersion = '1.0.0'
+        desc = 'an  Android SuperStateView'
+        website = 'https://github.com/lyxxman/SuperStateView'
+    }
 }
 
 dependencies {
