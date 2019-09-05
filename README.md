@@ -36,8 +36,8 @@ Step 2. Add the dependency
 	dependencies {
 	        implementation 'com.github.lyxxman:SuperStateView:1.0.0'
 	}
-(2)jcenter
- implementation 'com.ly:superstateview:1.0.0'
+(2)jcenter  
+ implementation 'com.ly:superstateview:1.0.0'  
  
  
  
