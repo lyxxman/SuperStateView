@@ -21,24 +21,9 @@
       showNetErrorView()  
  （2）showView(int type)  
  建议在activity 或者fragment ondestroy方法里面调用，superstateview的ondestroy方法，释放内存。  
- 使用方法：
- (1)jitpack
- Add it in your root build.gradle at the end of repositories:
-
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-Step 2. Add the dependency
-
-	dependencies {
-	        implementation 'com.github.lyxxman:SuperStateView:1.0.0'
-	}
-(2)jcenter  
+ **使用方法：**
  implementation 'com.ly:superstateview:2.0.0'  
- (3)**注意事项**
+**注意事项**
   新版为2.0.0，使用viewstub作为容器，所以不能使用merge作为子布局父容器
           
  
