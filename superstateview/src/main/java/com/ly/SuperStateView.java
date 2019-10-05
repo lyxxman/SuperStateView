@@ -5,8 +5,8 @@ import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import com.ly.superstateview.R;
 
 /**
- * @version 1.0.0
+ * @version 2.0.0 使用viewstub 添加懒加载
  * @name 多状态view
  * @date 2019年9月4日 14:36:25
  */
@@ -28,6 +28,8 @@ public class SuperStateView extends FrameLayout {
     private final int EMPTY = 2; //空状态
     private final int NETERROR = 3; //网络错误
     private final int ERROR = 4; //发生错误
+    private ViewStub mStbLoading, mStbEmpty, mStbNetError, mStbError, mStbContent;
+    public int layLoadingId, layEmptyId, layNetErrorId, layErrorId, layContentId;
 
     public SuperStateView(@NonNull Context context) {
         this(context, null);
@@ -63,9 +65,11 @@ public class SuperStateView extends FrameLayout {
 
     public void showLoadingView() {
         hidViews();
-        if (mVLoading != null) {
-            mVLoading.setWillNotDraw(false);
-            mVLoading.setVisibility(VISIBLE);
+        if (mStbLoading != null) {
+            if (mVLoading == null) {
+                mVLoading = mStbLoading.inflate();
+            } else
+                mVLoading.setVisibility(VISIBLE);
             SHOW_TYPE = LOADING;
         } else {
             Log.e("SuperState:", "not inflate load view");
@@ -74,9 +78,11 @@ public class SuperStateView extends FrameLayout {
 
     public void showEmptyView() {
         hidViews();
-        if (mVEmpty != null) {
-            mVEmpty.setWillNotDraw(false);
-            mVEmpty.setVisibility(VISIBLE);
+        if (mStbEmpty != null) {
+            if (mVEmpty == null) {
+                mVEmpty = mStbEmpty.inflate();
+            } else
+                mVEmpty.setVisibility(VISIBLE);
             SHOW_TYPE = EMPTY;
         } else {
             Log.e("SuperState:", "not inflate empty view");
@@ -85,9 +91,11 @@ public class SuperStateView extends FrameLayout {
 
     public void showContentView() {
         hidViews();
-        if (mVContent != null) {
-            mVContent.setWillNotDraw(false);
-            mVContent.setVisibility(VISIBLE);
+        if (mStbContent != null) {
+            if (mVContent == null) {
+                mVContent = mStbContent.inflate();
+            } else
+                mVContent.setVisibility(VISIBLE);
             SHOW_TYPE = COTENT;
         } else {
             Log.e("SuperState:", "not inflate content view");
@@ -96,9 +104,12 @@ public class SuperStateView extends FrameLayout {
 
     public void showErrorView() {
         hidViews();
-        if (mVError != null) {
-            mVNetError.setWillNotDraw(false);
-            mVError.setVisibility(VISIBLE);
+        if (mStbError != null) {
+            if (mVError == null) {
+                mVError = mStbError.inflate();
+            } else {
+                mVError.setVisibility(VISIBLE);
+            }
             SHOW_TYPE = ERROR;
         } else {
             Log.e("SuperState:", "not inflate error view");
@@ -107,9 +118,12 @@ public class SuperStateView extends FrameLayout {
 
     public void showNetErrorView() {
         hidViews();
-        if (mVNetError != null) {
-            mVNetError.setWillNotDraw(false);
-            mVNetError.setVisibility(VISIBLE);
+        if (mStbNetError != null) {
+            if (mVNetError == null) {
+                mVNetError = mStbNetError.inflate();
+            } else {
+                mVNetError.setVisibility(VISIBLE);
+            }
             SHOW_TYPE = NETERROR;
         } else {
             Log.e("SuperState:", "not inflate net error view");
@@ -148,50 +162,60 @@ public class SuperStateView extends FrameLayout {
 
     private void addLoadView(int id) {
         if (id != 0) {
-            mVLoading = LayoutInflater.from(mContext).inflate(id, this, false);
-            if (mVLoading != null) {
-                mVLoading.setWillNotDraw(true);
-                addView(mVLoading);
+            mStbLoading = new ViewStub(mContext);
+            layLoadingId = View.generateViewId();
+            mStbLoading.setInflatedId(layLoadingId);
+            mStbLoading.setLayoutResource(id);
+            if (mStbLoading != null) {
+                addView(mStbLoading);
             }
         }
     }
 
     private void addEmptyView(int id) {
         if (id != 0) {
-            mVEmpty = LayoutInflater.from(mContext).inflate(id, this, false);
-            if (mVEmpty != null) {
-                mVEmpty.setWillNotDraw(true);
-                addView(mVEmpty);
+            mStbEmpty = new ViewStub(mContext);
+            layEmptyId = View.generateViewId();
+            mStbEmpty.setInflatedId(layEmptyId);
+            mStbEmpty.setLayoutResource(id);
+            if (mStbEmpty != null) {
+                addView(mStbEmpty);
             }
         }
     }
 
     private void addContentId(int id) {
         if (id != 0) {
-            mVContent = LayoutInflater.from(mContext).inflate(id, this, false);
-            if (mVContent != null) {
-                mVContent.setWillNotDraw(true);
-                addView(mVContent);
+            mStbContent = new ViewStub(mContext);
+            layContentId = View.generateViewId();
+            mStbContent.setInflatedId(layContentId);
+            mStbContent.setLayoutResource(id);
+            if (mStbContent != null) {
+                addView(mStbContent);
             }
         }
     }
 
     private void addErrorId(int id) {
         if (id != 0) {
-            mVError = LayoutInflater.from(mContext).inflate(id, this, false);
-            if (mVError != null) {
-                mVError.setWillNotDraw(true);
-                addView(mVError);
+            mStbError = new ViewStub(mContext);
+            layErrorId = View.generateViewId();
+            mStbError.setInflatedId(layErrorId);
+            mStbError.setLayoutResource(id);
+            if (mStbError != null) {
+                addView(mStbError);
             }
         }
     }
 
     private void addNetErrorId(int id) {
         if (id != 0) {
-            mVNetError = LayoutInflater.from(mContext).inflate(id, this, false);
-            if (mVNetError != null) {
-                mVNetError.setWillNotDraw(true);
-                addView(mVNetError);
+            mStbNetError = new ViewStub(mContext);
+            layNetErrorId = View.generateViewId();
+            mStbNetError.setInflatedId(layNetErrorId);
+            mStbNetError.setLayoutResource(id);
+            if (mStbNetError != null) {
+                addView(mStbNetError);
             }
         }
     }
@@ -231,6 +255,11 @@ public class SuperStateView extends FrameLayout {
      */
     public void onDestroy() {
         removeAllViews();
+        mStbNetError=null;
+        mStbError =null;
+        mStbEmpty=null;
+        mStbLoading =null;
+        mStbContent=null;
         mVLoading = null;
         mVContent = null;
         mVEmpty = null;

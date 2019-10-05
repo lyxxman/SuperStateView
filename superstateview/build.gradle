@@ -7,10 +7,10 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -26,7 +26,7 @@ android {
         userOrg = 'lyxxman'
         groupId = 'com.ly'
         artifactId = 'superstateview'
-        publishVersion = '1.0.0'
+        publishVersion = '2.0.0'
         desc = 'an  Android SuperStateView'
         website = 'https://github.com/lyxxman/SuperStateView'
     }
