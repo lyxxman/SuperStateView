@@ -37,7 +37,10 @@ Step 2. Add the dependency
 	        implementation 'com.github.lyxxman:SuperStateView:1.0.0'
 	}
 (2)jcenter  
- implementation 'com.ly:superstateview:1.0.0'  
+ implementation 'com.ly:superstateview:2.0.0'  
+ (3)**注意事项**
+  新版为2.0.0，使用viewstub作为容器，所以不能使用merge作为子布局父容器
+          
  
  
  
